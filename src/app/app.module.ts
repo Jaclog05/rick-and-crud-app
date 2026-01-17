@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { CharactersModule } from './characters/characters.module';
+import { FavoritesModule } from './favorites/favorites.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { CharactersModule } from './characters/characters.module';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    CharactersModule
+    CharactersModule,
+    FavoritesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
