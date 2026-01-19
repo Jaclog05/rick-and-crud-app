@@ -6,7 +6,9 @@ import { FavoriteCharacter } from '../models/character.model';
   providedIn: 'root'
 })
 export class FavoritesService {
-  private favoriteSubject = new BehaviorSubject<FavoriteCharacter[]>([])
+  private readonly STORAGE_KEY = 'rm_characters';
+
+  private favoriteSubject = new BehaviorSubject<FavoriteCharacter[]>(this.loadFromLocalStorage());
 
   favorites$: Observable<FavoriteCharacter[]> = this.favoriteSubject.asObservable()
 
@@ -21,14 +23,14 @@ export class FavoritesService {
 
     if(!current.find(character => character.id === newFavorite.id)) {
       const updated = [...current, newFavorite]
-      this.favoriteSubject.next(updated)
+      this.updateState(updated)
     }
   }
 
   deleteFavorite(favoriteId: number): void {
     const current = this.currentFavorites
     const updated = current.filter(character => character.id !== favoriteId)
-    this.favoriteSubject.next(updated)
+    this.updateState(updated)
   }
 
   updateFavorite(updatedFavorite: FavoriteCharacter): void {
@@ -36,6 +38,16 @@ export class FavoritesService {
     const updated = current.map(character => 
       character.id === updatedFavorite.id ? updatedFavorite : character
     )
-    this.favoriteSubject.next(updated)
+    this.updateState(updated)
+  }
+
+  private updateState(updatedFavorites: FavoriteCharacter[]): void {
+    this.favoriteSubject.next(updatedFavorites)
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(updatedFavorites))
+  }
+
+  private loadFromLocalStorage(): FavoriteCharacter[] {
+    const data = localStorage.getItem(this.STORAGE_KEY);
+    return data ? JSON.parse(data) : [];
   }
 }
