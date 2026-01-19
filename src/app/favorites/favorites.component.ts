@@ -45,7 +45,7 @@ export class FavoritesComponent implements OnInit {
       accept: () => {
         this.favoritesService.deleteFavorite(id);
         this.messageService.add({
-          severity: 'warn',
+          severity: 'success',
           summary: 'Eliminado',
           detail: 'Se quitó de favoritos'
         })
@@ -71,7 +71,7 @@ export class FavoritesComponent implements OnInit {
       this.favoritesService.updateFavorite(updated)
       this.displayModal = false;
       this.messageService.add({
-        severity: 'info',
+        severity: 'success',
         summary: 'Actualizado',
         detail: 'Favorito editado correctamente'
       })

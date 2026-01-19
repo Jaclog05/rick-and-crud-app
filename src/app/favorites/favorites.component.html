@@ -17,6 +17,7 @@
         <td>{{fav.comment}}</td>
         <td>
           <p-button icon="pi pi-pencil" styleClass="p-button-rounded p-button-text" (click)="openEdit(fav)"></p-button>
+          <p-toast/>
           <p-button icon="pi pi-trash" styleClass="p-button-rounded p-button-danger p-button-text" (click)="confirmDelete(fav.id)"></p-button>
         </td>
       </tr>
@@ -48,6 +49,7 @@
 
       <div class="flex justify-content-end gap-2 mt-3">
         <p-button label="Cancelar" icon="pi pi-times" styleClass="p-button-text" (click)="displayModal=false"></p-button>
+        <p-toast/>
         <p-button label="Guardar" icon="pi pi-check" [disabled]="favoriteForm.invalid" (click)="saveFavorite()"></p-button>
       </div>
     </form>
