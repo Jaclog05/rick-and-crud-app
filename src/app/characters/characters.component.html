@@ -8,6 +8,7 @@
       <img [src]="char.image" [alt]="char.name">
       <h3>{{ char.name }}</h3>
       <p>Especie: {{ char.species }}</p>
+      <button (click)="agregarAFavoritos(char)">Agregar</button>
       </div>
   </div>
 </div>

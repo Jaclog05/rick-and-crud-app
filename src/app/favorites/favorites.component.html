@@ -1,1 +1,29 @@
-<p>favorites works!</p>
+<div style="padding: 20px;">
+  <h2>Mis Personajes Favoritos</h2>
+
+  <table border="1" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+    <thead>
+      <tr style="background-color: #f2f2f2;">
+        <th>Imagen</th>
+        <th>Nombre</th>
+        <th>Comentario</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fav of favorites">
+        <td style="text-align: center;">
+          <img [src]="fav.image" width="50" alt="Avatar">
+        </td>
+        <td>{{ fav.name }}</td>
+        <td>{{ fav.comment }}</td>
+      </tr>
+
+      <tr *ngIf="favorites.length === 0">
+        <td colspan="4" style="text-align: center; padding: 10px;">
+          No tienes favoritos aún.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
