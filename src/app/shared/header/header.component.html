@@ -1,8 +1,14 @@
 <p-menubar [model]="items">
+  <ng-template pTemplate="start">
+    <div class="flex align-items-center gap-2 mr-4">
+      <i class="pi pi-bolt text-2xl"></i>
+      <span class="text-xl font-bold text-primary">Rick & CRUD App</span>
+    </div>
+</ng-template>
   <ng-template pTemplate="end">
     <div class="flex align-items-center gap-2 mr-4">
       <span class="font-bold">❤️ Favoritos: </span>
-      <p-tag [value]="favoritesCount.toString()" severity="info"></p-tag>
+      <p-tag [value]="favoritesCount.toString()" severity="info" styleClass="text-base"></p-tag>
     </div>
   </ng-template>
 </p-menubar>
