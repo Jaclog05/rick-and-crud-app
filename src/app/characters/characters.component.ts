@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RickMortyService } from '../core/services/rick-morty.service';
-import { Character } from '../core/models/character.model';
+import { FavoritesService } from '../core/services/favorites.service';
+import { Character, FavoriteCharacter } from '../core/models/character.model';
 
 @Component({
   selector: 'app-characters',
@@ -11,7 +12,18 @@ export class CharactersComponent implements OnInit {
   characters: Character[] = [];
   loading: boolean = false;
 
-  constructor(private rickMortyService: RickMortyService) {  }
+  constructor(
+    private rickMortyService: RickMortyService,
+    private favoritesService: FavoritesService
+  ) {  }
+
+  agregarAFavoritos(char: Character): void{
+    const newFavorite: FavoriteCharacter = {
+      ...char,
+      comment: "Añadido a Favoritos"
+    }
+    this.favoritesService.addFavorite(newFavorite)
+  }
 
   ngOnInit(): void {
     this.loadCharacters();
