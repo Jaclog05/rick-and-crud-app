@@ -24,4 +24,10 @@ export class FavoritesService {
       this.favoriteSubject.next(updated)
     }
   }
+
+  deleteFavorite(favoriteId: number): void {
+    const current = this.currentFavorites
+    const updated = current.filter(character => character.id !== favoriteId)
+    this.favoriteSubject.next(updated)
+  }
 }

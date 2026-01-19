@@ -23,4 +23,8 @@ export class FavoritesComponent implements OnInit {
       this.favorites = favorites
     })
   }
+
+  removeFavorite(favoriteId: number): void {
+    this.favoritesService.deleteFavorite(favoriteId)
+  }
 }

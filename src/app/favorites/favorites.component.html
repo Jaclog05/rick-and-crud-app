@@ -17,6 +17,10 @@
         </td>
         <td>{{ fav.name }}</td>
         <td>{{ fav.comment }}</td>
+        <td style="text-align: center;">
+          <button (click)="removeFavorite(fav.id)" style="background-color: #ff4d4d; color: white;">
+            Eliminar
+          </button>
       </tr>
 
       <tr *ngIf="favorites.length === 0">
