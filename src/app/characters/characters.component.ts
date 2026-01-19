@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RickMortyService } from '../core/services/rick-morty.service';
 import { FavoritesService } from '../core/services/favorites.service';
 import { Character, FavoriteCharacter } from '../core/models/character.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-characters',
@@ -14,7 +15,8 @@ export class CharactersComponent implements OnInit {
 
   constructor(
     private rickMortyService: RickMortyService,
-    private favoritesService: FavoritesService
+    private favoritesService: FavoritesService,
+    private messageService: MessageService
   ) {  }
 
   agregarAFavoritos(char: Character): void{
@@ -23,6 +25,12 @@ export class CharactersComponent implements OnInit {
       comment: "Añadido a Favoritos"
     }
     this.favoritesService.addFavorite(newFavorite)
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Agregado',
+      detail: `${char.name} está en tus favoritos`
+    })
   }
 
   ngOnInit(): void {
@@ -41,5 +49,13 @@ export class CharactersComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+   getSeverity(status: string): 'success' | 'warning' | 'danger' {
+    switch (status) {
+      case 'Alive': return 'success';
+      case 'Dead': return 'danger';
+      default: return 'warning';
+    }
   }
 }

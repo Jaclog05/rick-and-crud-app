@@ -1,14 +1,28 @@
-<div class="characters-container">
-  <h2>Personajes de Rick & Morty</h2>
-  
-  <div *ngIf="loading">Cargando...</div>
+<div class="p-4">
+  <h2 class="mb-4">Personajes de Rick & Morty</h2>
 
-  <div class="grid" *ngIf="!loading">
-    <div *ngFor="let char of characters" class="card">
-      <img [src]="char.image" [alt]="char.name">
-      <h3>{{ char.name }}</h3>
-      <p>Especie: {{ char.species }}</p>
-      <button (click)="agregarAFavoritos(char)">Agregar</button>
-      </div>
+  <div class="grid justify-content-center">
+    <div *ngFor="let char of characters" class="col-12 md:col-6 lg:col-3 p-3">
+      
+      <p-card [header]="char.name" [subheader]="char.species" styleClass="h-full shadow-3">
+        <ng-template pTemplate="header">
+          <img [alt]="char.name" [src]="char.image" style="width: 100%; border-radius: 6px 6px 0 0;"/>
+        </ng-template>
+
+        <div class="mb-1">
+          <p-tag [value]="char.status" [severity]="getSeverity(char.status)"></p-tag>
+        </div>
+
+        <ng-template pTemplate="footer">
+          <p-button
+            label="Agregar a Favoritos"
+            icon="pi pi-heart"
+            severity="danger"
+            class="w-full"
+            (click)="agregarAFavoritos(char)">
+          </p-button>
+        </ng-template>
+      </p-card>
+    </div>
   </div>
 </div>

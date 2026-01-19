@@ -1,33 +1,57 @@
-<div style="padding: 20px;">
-  <h2>Mis Personajes Favoritos</h2>
+<div class="p-4">
+  <h2 class="mb-4">Mis Personajes Favoritos</h2>
 
-  <table border="1" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-    <thead>
-      <tr style="background-color: #f2f2f2;">
+  <p-table [value]="favorites" [responsiveLayout]="'scroll'" styleClass="p-datatable-striped shadow-2">
+    <ng-template pTemplate="header">
+      <tr>
         <th>Imagen</th>
         <th>Nombre</th>
         <th>Comentario</th>
         <th>Acciones</th>
       </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let fav of favorites">
-        <td style="text-align: center;">
-          <img [src]="fav.image" width="50" alt="Avatar">
+    </ng-template>
+    <ng-template pTemplate="body" let-fav>
+      <tr>
+        <td><img [src]="fav.image" width="50" class="border-circle"></td>
+        <td>{{fav.name}}</td>
+        <td>{{fav.comment}}</td>
+        <td>
+          <p-button icon="pi pi-pencil" styleClass="p-button-rounded p-button-text" (click)="openEdit(fav)"></p-button>
+          <p-button icon="pi pi-trash" styleClass="p-button-rounded p-button-danger p-button-text" (click)="confirmDelete(fav.id)"></p-button>
         </td>
-        <td>{{ fav.name }}</td>
-        <td>{{ fav.comment }}</td>
-        <td style="text-align: center;">
-          <button (click)="removeFavorite(fav.id)" style="background-color: #ff4d4d; color: white;">
-            Eliminar
-          </button>
       </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4" class="text-center p-4">No tienes favoritos aún.</td>
+      </tr>
+    </ng-template>
+  </p-table>
 
-      <tr *ngIf="favorites.length === 0">
-        <td colspan="4" style="text-align: center; padding: 10px;">
-          No tienes favoritos aún.
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <p-dialog header="Editar Favorito" [(visible)]="displayModal" [modal]="true" [style]="{width: '450px'}">
+    <form [formGroup]="favoriteForm" (ngSubmit)="saveFavorite()" class="flex flex-column gap-3 mt-2">
+      <div class="flex flex-column gap-2">
+        <label for="name">Nombre</label>
+        <input pInputText id="name" formControlName="name" />
+        <small class="p-error" *ngIf="favoriteForm.get('name')?.invalid && favoriteForm.get('name')?.touched">
+          El nombre es requerido.
+        </small>
+      </div>
+
+      <div class="flex flex-column gap-2">
+        <label for="comment">Comentario</label>
+        <textarea pInputTextarea id="comment" formControlName="comment" rows="3"></textarea>
+        <small class="p-error" *ngIf="favoriteForm.get('comment')?.invalid && favoriteForm.get('comment')?.touched">
+          El comentario debe tener al menos 3 caracteres.
+        </small>
+      </div>
+
+      <div class="flex justify-content-end gap-2 mt-3">
+        <p-button label="Cancelar" icon="pi pi-times" styleClass="p-button-text" (click)="displayModal=false"></p-button>
+        <p-button label="Guardar" icon="pi pi-check" [disabled]="favoriteForm.invalid" (click)="saveFavorite()"></p-button>
+      </div>
+    </form>
+  </p-dialog>
+
+  <p-confirmDialog></p-confirmDialog>
 </div>

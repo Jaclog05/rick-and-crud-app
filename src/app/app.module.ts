@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,13 +16,14 @@ import { FavoritesModule } from './favorites/favorites.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    CharactersModule,
+    FavoritesModule,
     AppRoutingModule,
     HttpClientModule,
-    SharedModule,
-    CharactersModule,
-    FavoritesModule
+    SharedModule
   ],
-  providers: [],
+  providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

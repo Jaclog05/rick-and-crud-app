@@ -30,4 +30,12 @@ export class FavoritesService {
     const updated = current.filter(character => character.id !== favoriteId)
     this.favoriteSubject.next(updated)
   }
+
+  updateFavorite(updatedFavorite: FavoriteCharacter): void {
+    const current = this.currentFavorites
+    const updated = current.map(character => 
+      character.id === updatedFavorite.id ? updatedFavorite : character
+    )
+    this.favoriteSubject.next(updated)
+  }
 }
